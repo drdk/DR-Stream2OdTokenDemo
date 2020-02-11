@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DR.ThirdPartyTokenDemo
+namespace DR.Stream2OdTokenDemo
 {
     class DemoSettings
     {
         public string Key { get; set; }
-        public string TestUrl { get; set; }
     }
 }
