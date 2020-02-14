@@ -39,11 +39,8 @@ namespace DR.Stream2OdTokenDemo
                     Format = "HLS",
                     IPAvailability = "EU",
                     IsTokenProtected = true,
-                    AdditionalTokenConfiguration = new AdditionalTokenConfiguration
-                    {
-                        Acl = euAcl,
-                        Payload = payload
-                    }
+                    TokenAcl = euAcl,
+                    TokenPayload = payload
                 },
             };
         }
