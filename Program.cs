@@ -57,9 +57,8 @@ namespace DR.Stream2OdTokenDemo
                 }
                 else
                 {
-                    // unklock protected link
-                    var token = GenerateToken(cfg.Key, testLink.AdditionalTokenConfiguration.Acl,
-                        testLink.AdditionalTokenConfiguration.Payload, externalIp);
+                    // unlock protected link
+                    var token = GenerateToken(cfg.Key, testLink.AdditionalTokenConfiguration.Acl, testLink.AdditionalTokenConfiguration.Payload, externalIp);
                     var uriBuilder = new UriBuilder(testLink.AssetSourceLink);
                     uriBuilder.Query += $"&hdnea={token}";
                     TestTarget = uriBuilder.Uri;
@@ -81,7 +80,11 @@ namespace DR.Stream2OdTokenDemo
                     //throw;
                 }
 
+                Console.WriteLine();
             }
+
+            Console.WriteLine("Press Enter to quit.");
+            Console.ReadLine();
         }
 
         private static IConfigurationRoot GetConfiguration() =>
