@@ -10,6 +10,8 @@ namespace DR.Stream2OdTokenDemo.Models
         public string Format { get; set; }
         public Subtitle[] Subtitles { get; set; }
         public bool IsTokenProtected { get; set; }
-        public AdditionalTokenConfiguration AdditionalTokenConfiguration { get; set; }
+        public string TokenAcl { get; set; }
+        public string TokenPayload { get; set; }
+        public bool IsLive { get; set; }
     }
 }

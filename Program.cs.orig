@@ -57,8 +57,13 @@ namespace DR.Stream2OdTokenDemo
                 }
                 else
                 {
+<<<<<<< HEAD
                     // unlock protected link
+                    var token = GenerateToken(cfg.Key, testLink.AdditionalTokenConfiguration.Acl, testLink.AdditionalTokenConfiguration.Payload, externalIp);
+=======
+                    // unklock protected link
                     var token = GenerateToken(cfg.Key, testLink.TokenAcl, testLink.TokenPayload, externalIp);
+>>>>>>> 8a9556ca5bf9b444d5f23160f56af01eb5cd4baa
                     var uriBuilder = new UriBuilder(testLink.AssetSourceLink);
                     uriBuilder.Query += $"&hdnea={token}";
                     TestTarget = uriBuilder.Uri;
