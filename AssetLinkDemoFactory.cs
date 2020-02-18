@@ -30,7 +30,8 @@ namespace DR.Stream2OdTokenDemo
                     DeliveryType = "Stream",
                     Format = "HLS",
                     IPAvailability = "DK",
-                    IsTokenProtected = false
+                    IsTokenProtected = false,
+                    IsStreamLive = false
                 },
                 new VideoAssetLink
                 {
@@ -40,7 +41,8 @@ namespace DR.Stream2OdTokenDemo
                     IPAvailability = "EU",
                     IsTokenProtected = true,
                     TokenAcl = euAcl,
-                    TokenPayload = payload
+                    TokenPayload = payload,
+                    IsStreamLive = false
                 },
             };
         }

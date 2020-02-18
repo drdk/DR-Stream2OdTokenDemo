@@ -17,7 +17,7 @@ Example of VideoAssetLinks:
         "deliveryType": "Stream",
         "format": "HLS",
         "isTokenProtected": false,
-        "isLive": false
+        "isStreamLive ": false
     },
     {
         "assetSourceLink": "https://dr01-lh.akamaihd.net/i/eu/dr01_0@147054/master.m3u8?start=1581686777&end=1581687077",
@@ -27,7 +27,7 @@ Example of VideoAssetLinks:
         "isTokenProtected": true,
         "tokenAcl": "/i/eu/dr01_0@147054/*",
         "tokenPayload": "1581686777-1581687077",
-        "isLive": false
+        "isStreamLive ": false
     }
 ]
 ```

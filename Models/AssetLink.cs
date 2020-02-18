@@ -12,6 +12,6 @@ namespace DR.Stream2OdTokenDemo.Models
         public bool IsTokenProtected { get; set; }
         public string TokenAcl { get; set; }
         public string TokenPayload { get; set; }
-        public bool IsLive { get; set; }
+        public bool? IsStreamLive { get; set; }
     }
 }
