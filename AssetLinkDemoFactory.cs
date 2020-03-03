@@ -19,8 +19,8 @@ namespace DR.Stream2OdTokenDemo
 
             var dkAcl = $"/i/dk/{akamaiEvent}/*";
             var dkUri = $"{akamaiHost}/i/dk/{akamaiEvent}/master.m3u8?start={startSec:####}&end={endSec:####}&hdnea={Program.GenerateToken(key,dkAcl,payload,string.Empty)}";
-            var euUri = $"{akamaiHost}/i/eu/{akamaiEvent}/master.m3u8?start={startSec:####}&end={endSec:####}";
-            var euAcl = $"/i/eu/{akamaiEvent}/*";
+            var euUri = $"{akamaiHost}/i/dk/{akamaiEvent}/master.m3u8?start={startSec:####}&end={endSec:####}";
+            var euAcl = $"/i/dk/{akamaiEvent}/*";
 
             return new[]
             {

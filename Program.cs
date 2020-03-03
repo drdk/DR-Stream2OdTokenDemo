@@ -32,7 +32,7 @@ namespace DR.Stream2OdTokenDemo
             GetConfiguration().Bind(cfg);
 
             
-            var testData = AssetLinkDemoFactory.GenerateDemoLinks(cfg.Key);
+            var testData = EuTestStreamAssetLinkDemoFactory.GenerateDemoLinks(cfg.Key);
 
             var s = JsonSerializer.Serialize(testData, new JsonSerializerOptions
             {
@@ -60,7 +60,10 @@ namespace DR.Stream2OdTokenDemo
                     // unlock protected link
                     var token = GenerateToken(cfg.Key, testLink.TokenAcl, testLink.TokenPayload, externalIp);
                     var uriBuilder = new UriBuilder(testLink.AssetSourceLink);
-                    uriBuilder.Query += $"&hdnea={token}";
+                    if (string.IsNullOrEmpty(uriBuilder.Query))
+                        uriBuilder.Query = $"?hdnea={token}";
+                    else
+                        uriBuilder.Query += $"&hdnea={token}";
                     TestTarget = uriBuilder.Uri;
                 }
 
@@ -83,8 +86,8 @@ namespace DR.Stream2OdTokenDemo
                 Console.WriteLine();
             }
 
-            Console.WriteLine("Press Enter to quit.");
-            Console.ReadLine();
+            // Console.WriteLine("Press Enter to quit.");
+            // Console.ReadLine();
         }
 
         private static IConfigurationRoot GetConfiguration() =>
