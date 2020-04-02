@@ -18,7 +18,7 @@ namespace DR.Stream2OdTokenDemo
                 Acl = acl, // Access control list containing token permissions
                 Key = key, // Encryption key
                 Ip = clientIp, // end user's ip
-                Payload = payload,
+                Payload = payload
             };
             var tokenGenerator = new AkamaiTokenGenerator();
 
@@ -60,16 +60,26 @@ namespace DR.Stream2OdTokenDemo
                     // unlock protected link
                     var token = GenerateToken(cfg.Key, testLink.TokenAcl, testLink.TokenPayload, externalIp);
                     var uriBuilder = new UriBuilder(testLink.AssetSourceLink);
-                    uriBuilder.Query += $"&hdnea={token}";
+                    uriBuilder.Query += $"&hdnts={token}";
                     TestTarget = uriBuilder.Uri;
                 }
 
                 Console.WriteLine($"Testing : {TestTarget}");
+                var psi = new ProcessStartInfo
+                {
+                    FileName = TestTarget.ToString(),
+                    UseShellExecute = true
+                };
+                
+                //Process.Start(psi);
+
                 var request = WebRequest.Create(TestTarget);
                 WebResponse response;
                 try
                 {
+                    request.Headers.Add("Cookie", "hdntl=exp=1585896793~acl=%2f*~data=hdntl,st%3d1585806487,et%3d1585806787~hmac=9c0f64d00a9ae008fd65b6c72652a80e8918e2719e9101b7c1c63411ae5ca782");
                     response = request.GetResponse();
+                    var cookie = response.Headers["Set-Cookie"].Split(";")[0];
                     Debug.Assert((response as HttpWebResponse).StatusCode == HttpStatusCode.OK);
                     Console.WriteLine("OK!\n");
 
@@ -79,12 +89,11 @@ namespace DR.Stream2OdTokenDemo
                     Console.Error.WriteLine("auth failed " + e.Message);
                     //throw;
                 }
-
                 Console.WriteLine();
             }
 
-            Console.WriteLine("Press Enter to quit.");
-            Console.ReadLine();
+            //Console.WriteLine("Press Enter to quit.");
+            //Console.ReadLine();
         }
 
         private static IConfigurationRoot GetConfiguration() =>
