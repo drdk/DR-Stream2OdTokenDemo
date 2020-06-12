@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Net;
+using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using BookBeat.Akamai.EdgeAuthToken;
 using Microsoft.Extensions.Configuration;
 
@@ -31,9 +35,17 @@ namespace DR.Stream2OdTokenDemo
             var cfg = new DemoSettings();
             GetConfiguration().Bind(cfg);
 
-            
+#if BUILDINFACTORY
             var testData = AssetLinkDemoFactory.GenerateDemoLinks(cfg.Key);
+#else
+            var testData =
+                JsonSerializer.Deserialize<Models.VideoAsset[]>(
+                new WebClient().DownloadString(
+                "http://odpstst01:9200/api/OnlineAsset/GetVideoAssetByProductionId?productionId=00061898130")).SelectMany(va => va.VideoAssetLinks)
+                    .Where(val => val.Format == "HLS")
+                    .ToArray();
 
+#endif
             var s = JsonSerializer.Serialize(testData, new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -77,10 +89,13 @@ namespace DR.Stream2OdTokenDemo
                 WebResponse response;
                 try
                 {
-                    request.Headers.Add("Cookie", "hdntl=exp=1585896793~acl=%2f*~data=hdntl,st%3d1585806487,et%3d1585806787~hmac=9c0f64d00a9ae008fd65b6c72652a80e8918e2719e9101b7c1c63411ae5ca782");
                     response = request.GetResponse();
-                    var cookie = response.Headers["Set-Cookie"].Split(";")[0];
+
                     Debug.Assert((response as HttpWebResponse).StatusCode == HttpStatusCode.OK);
+
+                    var masterString = new StreamReader(response.GetResponseStream(), Encoding.UTF8).ReadToEnd();
+                    
+                   
                     Console.WriteLine("OK!\n");
 
                 }
