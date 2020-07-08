@@ -72,7 +72,7 @@ namespace DR.Stream2OdTokenDemo
                     // unlock protected link
                     var token = GenerateToken(cfg.Key, testLink.TokenAcl, testLink.TokenPayload, externalIp);
                     var uriBuilder = new UriBuilder(testLink.AssetSourceLink);
-                    uriBuilder.Query += $"&hdnts={token}";
+                    uriBuilder.Query += $"&{testLink.TokenQueryName}={token}";
                     TestTarget = uriBuilder.Uri;
                 }
 
